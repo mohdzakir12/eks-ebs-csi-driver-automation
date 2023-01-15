@@ -83,3 +83,9 @@ resource "null_resource" "clustert" {
     command = "kubectl.exe annotate serviceaccount ebs-csi-controller-sa -n kube-system --overwrite=true eks.amazonaws.com/role-arn=${aws_iam_role.eks-ebs-csi-diver.arn}"
   }
 }
+
+resource "null_resource" "rolloutebs" {
+  provisioner "local-exec" {
+    command = "kubectl.exe rollout restart deployment ebs-csi-controller -n kube-system"
+  }
+}
