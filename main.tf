@@ -1,3 +1,13 @@
+terraform{
+  backend s3{
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+
 data "aws_eks_cluster" "example" {
   name = "nextcluster"
 }
@@ -80,12 +90,12 @@ provider "kubernetes" {
 
 resource "null_resource" "clustert" {
   provisioner "local-exec" {
-    command = "kubectl.exe annotate serviceaccount ebs-csi-controller-sa -n kube-system --overwrite=true eks.amazonaws.com/role-arn=${aws_iam_role.eks-ebs-csi-diver.arn}"
+    command = "kubectl annotate serviceaccount ebs-csi-controller-sa -n kube-system --overwrite=true eks.amazonaws.com/role-arn=${aws_iam_role.eks-ebs-csi-diver.arn}"
   }
 }
 
 resource "null_resource" "rolloutebs" {
   provisioner "local-exec" {
-    command = "kubectl.exe rollout restart deployment ebs-csi-controller -n kube-system"
+    command = "kubectl rollout restart deployment ebs-csi-controller -n kube-system"
   }
 }
