@@ -9,7 +9,7 @@ provider "aws" {
 
 
 data "aws_eks_cluster" "example" {
-  name = "nextcluster"
+  name = "cluster-za"
 }
 # output "identity-oidc-issuer" {
 #   value = trimprefix(data.aws_eks_cluster.example.identity[0].oidc[0].issuer,"https://oidc.eks.us-east-1.amazonaws.com/id/")
